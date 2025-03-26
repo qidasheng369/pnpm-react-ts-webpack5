@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-26 19:51:43
+ * @LastEditTime: 2025-03-26 20:24:22
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -25,6 +25,9 @@ module.exports = {
         path: path.join(__dirname, '../dist'), // 打包结果输出路径  
         clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了  
         publicPath: '/' // 打包后文件的公共前缀路径  
+    },
+    cache: {
+        type: 'filesystem', // 使用文件缓存
     },
     resolve: {
         extensions: [ '.tsx', '.js', '.ts'], // 自动解析确定的扩展
