@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 11:40:18
+ * @LastEditTime: 2025-03-27 16:28:07
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description: 
  * 
@@ -10,8 +10,10 @@
  */
 import React, { lazy, Suspense, useState } from 'react';
 import cat from '@/assets/imgs/cat1.jpeg';
-import './app.module.less';
-import './app.module.scss';
+import * as cssModuleStyles from './app.module.css';
+import * as lessModuleStyles from './app.module.less';
+import * as sassModuleStyles from './app.module.scss';
+import * as  sassStyles from './app2.scss';
 // import duckVideo from '@/assets/videos/duck.mp4';
 import typingAudio from '@/assets/audios/typing.mp3';
 
@@ -22,12 +24,32 @@ const Class = lazy(() => import('./components/Class'));
 const VideoPlayer = lazy(() => import('./components/VideoPlayer'));
 const AutoVideoPlayer = lazy(() => import('./components/AutoVideoPlayer'));
 
+const LazyDemo = lazy(() => import('@/components/LazyDemo')) // 使用import语法配合react的Lazy动态引入资源  
+
+console.log('lessModuleStyles', lessModuleStyles);
+console.log('sassModuleStyles', sassModuleStyles);
+
 function App() {
     const [showVideo, setShowVideo] = useState(false);
+
+    const [ show, setShow ] = useState(false)  
+  
+    // 点击事件中动态引入css, 设置show为true  
+    const onClick = async () => {  
+        try {
+            import("./app1.css");
+            setShow(true);
+        } catch (err) {
+            console.error('CSS加载失败:', err);
+        }
+    }
     
-    return (  
+    return (
          <div> 
-            <h2>template_react_ts 1111112223333</h2>
+            <h2 className={cssModuleStyles?.cssModuleClassName}>template_react_ts css module</h2>
+            <h2 className={lessModuleStyles?.lessModuleClassName}>template_react_ts less module</h2>
+            <h2 className={sassModuleStyles?.sassModuleClassName}>template_react_ts sass module</h2>
+            <h2 className={sassStyles?.sassClassName}>template_react_ts sass</h2>
             <Suspense fallback={<div>Loading...</div>}>
                 <Class />
             </Suspense>
@@ -53,6 +75,10 @@ function App() {
                 </Suspense>
             )}
             
+            <h2 onClick={onClick}>展示</h2>  
+            {/* show为true时加载LazyDemo组件 */}
+            { show && <Suspense fallback={<span>加载中</span>}><LazyDemo /></Suspense> }  
+
             <div style={{ width: '100%', height: '360px' }}>站位1</div>
             <div style={{ width: '100%', height: '360px' }}>站位2</div>
 

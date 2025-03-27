@@ -8,6 +8,6 @@ h2 {
   font-size: 24px;
 }
 
-.lessModuleClassName {
-  color: rgb(53, 162, 148);
+.cssModuleClassName {
+  color: #ccc;
 }

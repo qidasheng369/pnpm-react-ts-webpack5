@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 10:46:10
+ * @LastEditTime: 2025-03-27 16:30:58
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -72,11 +72,28 @@ module.exports = {
                     }
                 ]
             },
+            // css Modules
+            {
+                test: /\.module\.css$/,
+                exclude: [/node_modules/],
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                    localIdentName: '[name]__[local]--[hash:base64:5]', // 自定义类名格式
+                                },
+                            },
+                        },
+                    'postcss-loader',
+                ],
+            },
             // 单独处理css
             {
                 test: /\.css$/,
                 include: [path.resolve(__dirname, '../src')],
-                exclude: /node_modules/,
+                exclude: [/node_modules/, /\.module\.css$/],
                 use: [
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     'css-loader',
@@ -89,7 +106,10 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
-                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
+                    isDev ? {
+                        loader: "style-loader",
+                        options: { injectType: "singletonStyleTag" },
+                    } : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     {
                         loader: 'css-loader',
                         options: {
@@ -122,15 +142,18 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
-                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
+                    isDev ? {
+                        loader: "style-loader",
+                        options: { injectType: "singletonStyleTag" },
+                    } : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
                                 localIdentName: '[name]__[local]--[hash:base64:5]'
                             },
-                            sourceMap: true,
-                            importLoaders: 1
+                            // modules: true,
+                            importLoaders: 2
                         }
                     },
                     'postcss-loader',
@@ -139,12 +162,19 @@ module.exports = {
             },
             // 全局 SCSS
             {
-                test: /\.(css|scss)$/,
+                test: /\.scss$/,
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /\.module\.scss$/,
                 use: [
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[local]', // 保持原有类名
+                            },
+                        }
+                    },
                     'postcss-loader',
                     'sass-loader'
                 ]
