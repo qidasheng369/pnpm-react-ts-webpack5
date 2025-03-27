@@ -2,20 +2,22 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 21:52:03
+ * @LastEditTime: 2025-03-27 22:12:38
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description:
  *
  * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved.
  */
 import React, { lazy, Suspense, useState } from 'react';
+
+import typingAudio from '@/assets/audios/typing.mp3';
 import cat from '@/assets/imgs/cat1.jpeg';
+
 import * as cssModuleStyles from './app.module.css';
 import * as lessModuleStyles from './app.module.less';
 import * as sassModuleStyles from './app.module.scss';
 import * as sassStyles from './app2.scss';
 // import duckVideo from '@/assets/videos/duck.mp4';
-import typingAudio from '@/assets/audios/typing.mp3';
 
 // 使用 lazy 加载组件
 const Class = lazy(() => import('./components/Class'));
