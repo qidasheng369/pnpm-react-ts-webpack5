@@ -1,0 +1,15 @@
+.eslintrc.js  
+node_modules  
+dist  
+.idea  
+README.md  
+.gitignore
+
+eslint.config.mjs
+babel.config.js
+*.config.js
+build/**/*.js
+
+# copy files
+*copy*.*
+**/*copy*.*

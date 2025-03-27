@@ -1,0 +1,25 @@
+package.json  
+.idea  
+README.md  
+.gitignore
+
+# 构建输出
+dist
+build
+
+# 依赖目录
+node_modules
+
+# copy
+*copy*.*
+**/*copy*.*
+
+# 资源文件
+*.mp3
+*.mp4
+*.woff2
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.ico

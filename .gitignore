@@ -1,3 +1,11 @@
 .DS_Store
 node_modules
 dist
+
+# copy
+*copy*.*
+**/*copy*.*
+*copy.mjs
+*copy.js
+*copy.ts
+*copy.tsx

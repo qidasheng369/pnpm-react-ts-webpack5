@@ -49,6 +49,10 @@
     // 指定允许ts处理的文件目录
     "include": [
         "src/**/*",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
         "src/@types/global.d.ts"
     ],
     "exclude": [

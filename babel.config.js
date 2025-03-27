@@ -2,18 +2,20 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-26 15:02:49
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-26 19:59:20
+ * @LastEditTime: 2025-03-27 19:46:44
  * @FilePath: /pnpm-react-ts-webpack5/babel.config.js
  * @Description: 
  * 
  * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved. 
  */
 
-const isDEV = process.env.NODE_ENV === 'development' // 是否是开发模式
+// eslint-disable-next-line no-undef
+const isDEV = (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') // 是否是开发模式
 
 console.log('isDEV', isDEV)
 
 // babel.config.js
+// eslint-disable-next-line no-undef
 module.exports = {
     // 执行顺序由右往左,所以先处理ts,再处理jsx,最后再试一下babel转换为低版本语法
     "presets": [
@@ -39,6 +41,7 @@ module.exports = {
     sourceType: "unambiguous", // 解决webpack5中import()报错问题
     "plugins": [
         ["@babel/plugin-proposal-decorators", { "legacy": true }], // 解决装饰器报错问题
+        // eslint-disable-next-line no-undef
         isDEV && require.resolve('react-refresh/babel'), // 如果是开发模式,就启动react热更新插件
     ].filter(Boolean) // 过滤空值
 }

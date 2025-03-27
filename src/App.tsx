@@ -4,16 +4,16 @@
  * @LastEditors: 齐大胜 782395122@qq.com
  * @LastEditTime: 2025-03-27 17:17:16
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
- * @Description: 
- * 
- * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved.
  */
 import React, { lazy, Suspense, useState } from 'react';
 import cat from '@/assets/imgs/cat1.jpeg';
 import * as cssModuleStyles from './app.module.css';
 import * as lessModuleStyles from './app.module.less';
 import * as sassModuleStyles from './app.module.scss';
-import * as  sassStyles from './app2.scss';
+import * as sassStyles from './app2.scss';
 // import duckVideo from '@/assets/videos/duck.mp4';
 import typingAudio from '@/assets/audios/typing.mp3';
 
@@ -24,49 +24,55 @@ const Class = lazy(() => import('./components/Class'));
 const VideoPlayer = lazy(() => import('./components/VideoPlayer'));
 const AutoVideoPlayer = lazy(() => import('./components/AutoVideoPlayer'));
 
-const LazyDemo = lazy(() => import('@/components/LazyDemo')); // 使用import语法配合react的Lazy动态引入资源  
+const LazyDemo = lazy(() => import('@/components/LazyDemo')); // 使用import语法配合react的Lazy动态引入资源
 
 // prefetch
-const PreFetchDemo = lazy(() => import(
-    /* webpackChunkName: "PreFetchDemo" */
-    /* webpackPrefetch: true */
-    '@/components/PreFetchDemo'
-));
+const PreFetchDemo = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "PreFetchDemo" */
+            /* webpackPrefetch: true */
+            '@/components/PreFetchDemo'
+        )
+);
 
 // preload
-const PreloadDemo = lazy(() => import(
-    /* webpackChunkName: "PreloadDemo" */
-    /* webpackPreload: true */
-    /* webpackMode: "eager" */
-    '@/components/PreloadDemo'
-));
+const PreloadDemo = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "PreloadDemo" */
+            /* webpackPreload: true */
+            /* webpackMode: "eager" */
+            '@/components/PreloadDemo'
+        )
+);
 
 console.log('lessModuleStyles', lessModuleStyles);
 console.log('sassModuleStyles', sassModuleStyles);
 
-function App() {
+const App = () => {
     const [showVideo, setShowVideo] = useState(false);
 
     const [show, setShow] = useState(false);
 
     const [showPreload, setShowPreload] = useState(false);
-  
-    // 点击事件中动态引入css, 设置show为true  
-    const onClick = async () => {  
+
+    // 点击事件中动态引入css, 设置show为true
+    const onClick = async () => {
         try {
-            import("./app1.css");
+            import('./app1.css');
             setShow(!show);
         } catch (err) {
             console.error('CSS加载失败:', err);
         }
-    }
+    };
 
     const onClick2 = () => {
-        setShowPreload(!showPreload)
-    }
-    
+        setShowPreload(!showPreload);
+    };
+
     return (
-         <div> 
+        <div>
             <h2 className={cssModuleStyles?.cssModuleClassName}>template_react_ts css module</h2>
             <h2 className={lessModuleStyles?.lessModuleClassName}>template_react_ts less module</h2>
             <h2 className={sassModuleStyles?.sassModuleClassName}>template_react_ts sass module</h2>
@@ -88,31 +94,38 @@ function App() {
                 Your browser does not support the video tag.
             </video> */}
 
-           <button onClick={() => setShowVideo(true)}>加载视频</button>
+            <button onClick={() => setShowVideo(true)}>加载视频</button>
 
             {showVideo && (
                 <Suspense fallback={<div>视频加载中...</div>}>
                     <VideoPlayer />
                 </Suspense>
             )}
-            
-            <h2 onClick={onClick}>点击懒加载</h2>  
-            {/* show为true时加载LazyDemo组件 */}
-            { show && <Suspense fallback={<span>加载中</span>}><LazyDemo /></Suspense> }  
 
-            
+            <h2 onClick={onClick}>点击懒加载</h2>
+            {/* show为true时加载LazyDemo组件 */}
+            {show && (
+                <Suspense fallback={<span>加载中</span>}>
+                    <LazyDemo />
+                </Suspense>
+            )}
+
             <h2 onClick={onClick2}>点击预加载</h2>
             {/* show为true时加载组件 */}
-            { showPreload && (
+            {showPreload && (
                 <>
-                <Suspense fallback={<span>loading...</span>}><PreloadDemo /></Suspense>
-                <Suspense fallback={<span>loading...</span>}><PreFetchDemo /></Suspense>
+                    <Suspense fallback={<span>loading...</span>}>
+                        <PreloadDemo />
+                    </Suspense>
+                    <Suspense fallback={<span>loading...</span>}>
+                        <PreFetchDemo />
+                    </Suspense>
                 </>
             )}
-            
+
             <div style={{ width: '100%', height: '360px' }}>站位1</div>
             <div style={{ width: '100%', height: '360px' }}>站位2</div>
-            
+
             <Suspense fallback={<div>视频加载中...</div>}>
                 <AutoVideoPlayer />
             </Suspense>
@@ -127,7 +140,7 @@ function App() {
                 Your browser does not support the audio element.
             </audio>
         </div>
-    )
-}  
+    );
+};
 
-export default App
+export default App;
