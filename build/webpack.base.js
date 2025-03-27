@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 08:56:13
+ * @LastEditTime: 2025-03-27 09:11:16
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -13,6 +13,8 @@ const path = require('path'); // 引入path模块
 const webpack = require('webpack'); // 引入webpack
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 打包html文件
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const isDev = process.env.NODE_ENV === 'development' // 是否是开发模式
 
 console.log('NODE_ENV', process.env.NODE_ENV);
 console.log('BASE_ENV', process.env.BASE_ENV);
@@ -42,6 +44,16 @@ module.exports = {
             '@': path.resolve(__dirname, '../src')
         }
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../public/index.html'), // 模板取定义root节点的模板
+            inject: true, // 自动注入静态资源
+        }),
+        new webpack.DefinePlugin({ // 定义环境变量
+            'process.env.BASE_ENV': JSON.stringify(process.env.BASE_ENV)
+        }),
+        new ReactRefreshWebpackPlugin(), // 添加热更新插件
+    ],
     module: {
         noParse: /jquery|lodash/, // 不打包这些文件
         rules: [
@@ -66,7 +78,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     'css-loader',
                     'postcss-loader',
                 ]
@@ -77,7 +89,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     {
                         loader: 'css-loader',
                         options: {
@@ -98,7 +110,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /\.module\.less$/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     'css-loader',
                     'postcss-loader',
                     'less-loader'
@@ -110,7 +122,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     {
                         loader: 'css-loader',
                         options: {
@@ -131,7 +143,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src')],
                 exclude: /\.module\.scss$/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
                     'css-loader',
                     'postcss-loader',
                     'sass-loader'
@@ -178,14 +190,5 @@ module.exports = {
             },
         ]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../public/index.html'), // 模板取定义root节点的模板
-            inject: true, // 自动注入静态资源
-        }),
-        new webpack.DefinePlugin({ // 定义环境变量
-            'process.env.BASE_ENV': JSON.stringify(process.env.BASE_ENV)
-        }),
-        new ReactRefreshWebpackPlugin(), // 添加热更新插件
-    ],
+
 }
