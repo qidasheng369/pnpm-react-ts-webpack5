@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-26 20:24:22
+ * @LastEditTime: 2025-03-27 08:56:13
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -26,28 +26,55 @@ module.exports = {
         clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了  
         publicPath: '/' // 打包后文件的公共前缀路径  
     },
+    externals: { // 不打包的库
+        jquery: 'jQuery',
+    },
+    devtool: 'eval-cheap-module-source-map',
     cache: {
         type: 'filesystem', // 使用文件缓存
     },
     resolve: {
         extensions: [ '.tsx', '.js', '.ts'], // 自动解析确定的扩展
     },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.jpeg', '.jpg', '.png'],
+        alias: {
+            '@': path.resolve(__dirname, '../src')
+        }
+    },
     module: {
+        noParse: /jquery|lodash/, // 不打包这些文件
         rules: [
             // js tsx处理
             {
                 test: /\.(js|mjs|jsx|ts|tsx)$/,
+                include: [path.resolve(__dirname, '../src')], // 只对项目src文件的ts,tsx进行loader解析
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        cacheDirectory: true // 在这里启用缓存
+                use: [
+                    'thread-loader',
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true // 在这里启用缓存
+                        }
                     }
-                }
+                ]
+            },
+            // 单独处理css
+            {
+                test: /\.css$/,
+                include: [path.resolve(__dirname, '../src')],
+                exclude: /node_modules/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                ]
             },
             // LESS Modules
             {
                 test: /\.module\.less$/,
+                include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
@@ -67,7 +94,8 @@ module.exports = {
             },
             // 全局 LESS
             {
-                test: /\.(css|less)$/,
+                test: /\.less$/,
+                include: [path.resolve(__dirname, '../src')],
                 exclude: /\.module\.less$/,
                 use: [
                     'style-loader',
@@ -79,6 +107,7 @@ module.exports = {
             // SCSS Modules
             {
                 test: /\.module\.scss$/,
+                include: [path.resolve(__dirname, '../src')],
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
@@ -99,6 +128,7 @@ module.exports = {
             // 全局 SCSS
             {
                 test: /\.(css|scss)$/,
+                include: [path.resolve(__dirname, '../src')],
                 exclude: /\.module\.scss$/,
                 use: [
                     'style-loader',
@@ -158,10 +188,4 @@ module.exports = {
         }),
         new ReactRefreshWebpackPlugin(), // 添加热更新插件
     ],
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.jpeg', '.jpg', '.png'],
-        alias: {
-            '@': path.resolve(__dirname, '../src')
-        }
-    },
 }

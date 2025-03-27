@@ -90,6 +90,9 @@ importers:
       style-loader:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.98.0)
+      thread-loader:
+        specifier: ^4.0.4
+        version: 4.0.4(webpack@5.98.0)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.13.13)(typescript@5.8.2)
@@ -2035,6 +2038,9 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  json-parse-better-errors@1.0.2:
+    resolution: {integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==}
+
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
@@ -2931,6 +2937,12 @@ packages:
     engines: {node: '>=10.18'}
     peerDependencies:
       tslib: ^2
+
+  thread-loader@4.0.4:
+    resolution: {integrity: sha512-tXagu6Hivd03wB2tiS1bqvw345sc7mKei32EgpYpq31ZLes9FN0mEK2nKzXLRFgwt3PsBB0E/MZDp159rDoqwg==}
+    engines: {node: '>= 16.10.0'}
+    peerDependencies:
+      webpack: ^5.0.0
 
   thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
@@ -5378,6 +5390,8 @@ snapshots:
 
   jsesc@3.1.0: {}
 
+  json-parse-better-errors@1.0.2: {}
+
   json-parse-even-better-errors@2.3.1: {}
 
   json-schema-traverse@1.0.0: {}
@@ -6401,6 +6415,14 @@ snapshots:
   thingies@1.21.0(tslib@2.8.1):
     dependencies:
       tslib: 2.8.1
+
+  thread-loader@4.0.4(webpack@5.98.0):
+    dependencies:
+      json-parse-better-errors: 1.0.2
+      loader-runner: 4.3.0
+      neo-async: 2.6.2
+      schema-utils: 4.3.0
+      webpack: 5.98.0(webpack-cli@6.0.1)
 
   thunky@1.1.0: {}
 
