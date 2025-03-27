@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:58
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 11:01:22
+ * @LastEditTime: 2025-03-27 11:04:27
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.prod.js
  * @Description: 
  * 
@@ -63,7 +63,8 @@ module.exports = merge(baseConfig, {
     }),
     // 抽离css插件
     new MiniCssExtractPlugin({
-        filename: 'static/css/[name].css' // 抽离css的输出目录和名称
+      // filename: 'static/css/[name].css' // 抽离css的输出目录和名称
+      filename: 'static/css/[name].[contenthash:8].css' // 加上[contenthash:8]
     }),
   ]
 })

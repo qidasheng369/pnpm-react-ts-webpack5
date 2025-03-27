@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 09:11:16
+ * @LastEditTime: 2025-03-27 10:46:10
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -23,7 +23,7 @@ module.exports = {
     entry: path.join(__dirname, '../src/index.tsx'), // 入口文件
     // 打包文件出口  
     output: {  
-        filename: 'static/js/[name].js', // 每个输出js的名称  
+        filename: 'static/js/[name].[chunkhash:8].js', // // 加上[chunkhash:8]
         path: path.join(__dirname, '../dist'), // 打包结果输出路径  
         clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了  
         publicPath: '/' // 打包后文件的公共前缀路径  
@@ -159,7 +159,8 @@ module.exports = {
                     }
                 },
                 generator:{ 
-                    filename:'static/images/[name][ext]', // 文件输出目录和命名
+                    // filename:'static/images/[name][ext]', // 文件输出目录和命名
+                    filename:'static/images/[name].[contenthash:8][ext]' // 加上[contenthash:8]
                 },
             },
             // 字体处理
@@ -172,7 +173,8 @@ module.exports = {
                     }
                 },
                 generator:{ 
-                    filename:'static/fonts/[name][ext]', // 文件输出目录和命名
+                    // filename:'static/fonts/[name][ext]', // 文件输出目录和命名
+                    filename:'static/fonts/[name].[contenthash:8][ext]', // 加上[contenthash:8]
                 },
             },
             // 媒体文件处理
@@ -185,7 +187,8 @@ module.exports = {
                     }
                 },
                 generator:{ 
-                    filename:'static/media/[name][ext]', // 文件输出目录和命名
+                    // filename:'static/media/[name][ext]', // 文件输出目录和命名
+                    filename:'static/media/[name].[contenthash:8][ext]', // 加上[contenthash:8]
                 },
             },
         ]
