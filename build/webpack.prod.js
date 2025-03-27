@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:58
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 13:00:18
+ * @LastEditTime: 2025-03-27 14:22:29
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.prod.js
  * @Description: 
  * 
@@ -17,6 +17,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
+const globAll = require('glob-all');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -170,6 +172,18 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin({
       // filename: 'static/css/[name].css' // 抽离css的输出目录和名称
       filename: 'static/css/[name].[contenthash:8].css' // 加上[contenthash:8]
+    }),
+    // 清理无用css
+    new PurgeCSSPlugin({
+      // 检测src下所有tsx文件和public下index.html中使用的类名和id和标签名称
+      // 只打包这些文件中用到的样式
+      paths: globAll.sync([
+        `${path.join(__dirname, '../src')}/**/*.tsx`,
+        path.join(__dirname, '../public/index.html')
+      ]),
+      safelist: {
+        standard: [/^ant-/], // 过滤以ant-开头的类名，哪怕没用到也不删除
+      },
     }),
   ]
 })
