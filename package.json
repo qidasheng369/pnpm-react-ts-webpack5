@@ -44,6 +44,7 @@
     "sass-loader": "^16.0.5",
     "speed-measure-webpack-plugin": "^1.5.0",
     "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.14",
     "thread-loader": "^4.0.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
