@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:58
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 14:22:29
+ * @LastEditTime: 2025-03-27 17:44:33
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.prod.js
  * @Description: 
  * 
@@ -19,6 +19,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 const globAll = require('glob-all');
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -184,6 +185,16 @@ module.exports = merge(baseConfig, {
       safelist: {
         standard: [/^ant-/], // 过滤以ant-开头的类名，哪怕没用到也不删除
       },
+     
     }),
+    // 开启gzip压缩
+    new CompressionPlugin({
+      test: /.(js|css)$/, // 只生成css,js压缩文件
+      filename: '[path][base].gz', // 文件命名
+      algorithm: 'gzip', // 压缩格式,默认是gzip
+      test: /.(js|css)$/, // 只生成css,js压缩文件
+      threshold: 10240, // 只有大小大于该值的资源会被处理。默认值是 10k
+      minRatio: 0.8 // 压缩率,默认值是 0.8
+    })
   ]
 })
