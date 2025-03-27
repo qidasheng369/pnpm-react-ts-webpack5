@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 16:28:07
+ * @LastEditTime: 2025-03-27 17:17:16
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description: 
  * 
@@ -24,7 +24,22 @@ const Class = lazy(() => import('./components/Class'));
 const VideoPlayer = lazy(() => import('./components/VideoPlayer'));
 const AutoVideoPlayer = lazy(() => import('./components/AutoVideoPlayer'));
 
-const LazyDemo = lazy(() => import('@/components/LazyDemo')) // 使用import语法配合react的Lazy动态引入资源  
+const LazyDemo = lazy(() => import('@/components/LazyDemo')); // 使用import语法配合react的Lazy动态引入资源  
+
+// prefetch
+const PreFetchDemo = lazy(() => import(
+    /* webpackChunkName: "PreFetchDemo" */
+    /* webpackPrefetch: true */
+    '@/components/PreFetchDemo'
+));
+
+// preload
+const PreloadDemo = lazy(() => import(
+    /* webpackChunkName: "PreloadDemo" */
+    /* webpackPreload: true */
+    /* webpackMode: "eager" */
+    '@/components/PreloadDemo'
+));
 
 console.log('lessModuleStyles', lessModuleStyles);
 console.log('sassModuleStyles', sassModuleStyles);
@@ -32,16 +47,22 @@ console.log('sassModuleStyles', sassModuleStyles);
 function App() {
     const [showVideo, setShowVideo] = useState(false);
 
-    const [ show, setShow ] = useState(false)  
+    const [show, setShow] = useState(false);
+
+    const [showPreload, setShowPreload] = useState(false);
   
     // 点击事件中动态引入css, 设置show为true  
     const onClick = async () => {  
         try {
             import("./app1.css");
-            setShow(true);
+            setShow(!show);
         } catch (err) {
             console.error('CSS加载失败:', err);
         }
+    }
+
+    const onClick2 = () => {
+        setShowPreload(!showPreload)
     }
     
     return (
@@ -75,13 +96,22 @@ function App() {
                 </Suspense>
             )}
             
-            <h2 onClick={onClick}>展示</h2>  
+            <h2 onClick={onClick}>点击懒加载</h2>  
             {/* show为true时加载LazyDemo组件 */}
             { show && <Suspense fallback={<span>加载中</span>}><LazyDemo /></Suspense> }  
 
+            
+            <h2 onClick={onClick2}>点击预加载</h2>
+            {/* show为true时加载组件 */}
+            { showPreload && (
+                <>
+                <Suspense fallback={<span>loading...</span>}><PreloadDemo /></Suspense>
+                <Suspense fallback={<span>loading...</span>}><PreFetchDemo /></Suspense>
+                </>
+            )}
+            
             <div style={{ width: '100%', height: '360px' }}>站位1</div>
             <div style={{ width: '100%', height: '360px' }}>站位2</div>
-
             
             <Suspense fallback={<div>视频加载中...</div>}>
                 <AutoVideoPlayer />
