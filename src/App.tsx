@@ -2,13 +2,15 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-28 13:50:38
+ * @LastEditTime: 2025-03-28 15:50:10
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description:
  *
  * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved.
  */
 import React, { lazy, Suspense, useState } from 'react';
+
+import { BrowserRouter } from 'react-router-dom';
 
 import typingAudio from '@/assets/audios/typing.mp3';
 import cat from '@/assets/imgs/cat1.jpeg';
@@ -17,6 +19,7 @@ import * as cssModuleStyles from './app.module.css';
 import * as lessModuleStyles from './app.module.less';
 import * as sassModuleStyles from './app.module.scss';
 import * as sassStyles from './app2.scss';
+import RoutersConfig from './routers';
 // import duckVideo from '@/assets/videos/duck.mp4';
 
 // 使用 lazy 加载组件
@@ -52,7 +55,7 @@ const PreloadDemo = lazy(
 console.log('lessModuleStyles', lessModuleStyles);
 console.log('sassModuleStyles', sassModuleStyles);
 
-const App = () => {
+export const App1 = () => {
     const [showVideo, setShowVideo] = useState(false);
     const [show, setShow] = useState(false);
     const [showPreload, setShowPreload] = useState(false);
@@ -140,6 +143,14 @@ const App = () => {
                 Your browser does not support the audio element.
             </audio>
         </div>
+    );
+};
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <RoutersConfig />
+        </BrowserRouter>
     );
 };
 
