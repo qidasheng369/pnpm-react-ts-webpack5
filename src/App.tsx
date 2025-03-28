@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 22:12:38
+ * @LastEditTime: 2025-03-28 13:50:38
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description:
  *
@@ -54,9 +54,7 @@ console.log('sassModuleStyles', sassModuleStyles);
 
 const App = () => {
     const [showVideo, setShowVideo] = useState(false);
-
     const [show, setShow] = useState(false);
-
     const [showPreload, setShowPreload] = useState(false);
 
     // 点击事件中动态引入css, 设置show为true

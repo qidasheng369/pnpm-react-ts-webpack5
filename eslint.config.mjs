@@ -6,10 +6,35 @@ import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginImport from 'eslint-plugin-import';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
-import pluginPrettier from 'eslint-plugin-prettier';
-import configPrettier from 'eslint-config-prettier';
+
+// 独立的忽略配置
+const ignoresConfig = {
+    ignores: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/.git/**',
+        '**/.vscode/**',
+        '**/.husky/**',
+        'scripts/**/*',
+        'scripts/*.js',
+        '.eslintrc.js',
+        '.prettierrc.js',
+        '.stylelintrc.js',
+        'eslint.config.mjs',
+        'commitlint.config.js',
+        '*.config.{js,mjs,cjs}',
+        '.idea/**/*',
+        'README.md',
+        '.gitignore',
+        '.prettierignore',
+        '**/.*copy*.*',
+        '**/*copy*.*',
+    ],
+};
 
 export default defineConfig([
+    ignoresConfig, // 忽略
     { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
     { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], languageOptions: { globals: globals.browser } },
     { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], plugins: { js }, extends: ['js/recommended'] },
@@ -18,27 +43,6 @@ export default defineConfig([
     // 基础配置
     {
         files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-        ignores: [
-            // 系统文件
-            '.eslintrc.js',
-            'node_modules/**/*',
-            'dist/**/*',
-            '.idea/**/*',
-            'README.md',
-            '.gitignore',
-
-            // 配置文件
-            '.prettierrc.js',
-            '.stylelintrc.js',
-            'eslint.config.mjs',
-            'babel.config.js',
-            '*.config.js',
-            'build/**/*.js',
-
-            // copy 文件
-            '**/.*copy*.*',
-            '**/*copy*.*',
-        ],
         languageOptions: {
             globals: {
                 ...globals.browser,
@@ -60,9 +64,7 @@ export default defineConfig([
             'react-hooks': pluginReactHooks,
             import: pluginImport,
             'jsx-a11y': pluginJsxA11y,
-            prettier: pluginPrettier,
         },
-        extends: [configPrettier],
         settings: {
             react: {
                 version: 'detect',
@@ -74,31 +76,7 @@ export default defineConfig([
                 },
             },
         },
-    },
-    // Airbnb 依赖的版本低，先不配置Airbnb规则
-    // // Airbnb 规则
-    // {
-
-    //   files: ["**/*.{js,jsx,ts,tsx}"],
-    //   extends: [
-    //     'airbnb',
-    //     'airbnb-typescript',
-    //     'airbnb/hooks'
-    //   ],
-    //   plugins: {
-    //     '@typescript-eslint': tseslint.plugin,
-    //     'react': pluginReact,
-    //     'react-hooks': pluginReactHooks,
-    //     'import': pluginImport,
-    //     'jsx-a11y': pluginJsxA11y
-    //   },
-    // },
-
-    // 自定义规则
-    {
         rules: {
-            'prettier/prettier': 'error', // 添加 Prettier 规则
-
             // TypeScript 相关规则
             '@typescript-eslint/no-unused-vars': 'warn',
             '@typescript-eslint/no-explicit-any': 'off',
@@ -150,18 +128,14 @@ export default defineConfig([
                             position: 'before',
                         },
                     ],
-                    pathGroupsExcludedImportTypes: ['react'], // 排除某些类型以避免冲突
-                    'newlines-between': 'always', // 在不同组之间添加空行
+                    pathGroupsExcludedImportTypes: ['react'],
+                    'newlines-between': 'always',
                     alphabetize: {
-                        order: 'asc', // 按字母顺序排序
-                        caseInsensitive: true, // 忽略大小写
+                        order: 'asc',
+                        caseInsensitive: true,
                     },
                 },
             ],
-
-            // 其他规则
-            'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-            'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         },
     },
 ]);

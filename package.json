@@ -15,7 +15,30 @@
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
     "lint:prettier": "prettier -c --write \"src/**/*\"",
-    "lint:style": "stylelint \"**/*.css\""
+    "lint:style": "stylelint \"**/*.css\"",
+    "prepare": "husky install && chmod ug+x .husky/*",
+    "commit": "git add . && git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "scripts/cz-config.js"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ],
+    "*.{css,less,scss}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -27,6 +50,8 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.27.0",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.23.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@types/node": "^22.13.13",
@@ -37,15 +62,16 @@
     "@typescript-eslint/parser": "^8.28.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
+    "commitizen": "^4.3.1",
     "compression-webpack-plugin": "^11.1.0",
     "copy-webpack-plugin": "^13.0.0",
     "core-js": "^3.41.0",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.4.0",
     "eslint": "^9.23.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-import-resolver-typescript": "^4.2.5",
     "eslint-plugin-import": "^2.31.0",
@@ -56,8 +82,10 @@
     "glob-all": "^3.3.1",
     "globals": "^16.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "husky": "^8.0.0",
     "less": "^4.2.2",
     "less-loader": "^12.2.0",
+    "lint-staged": "^15.5.0",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
     "prettier": "^3.5.3",
@@ -85,5 +113,13 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "core-js-pure",
+      "node-sass"
+    ]
   }
 }
