@@ -29,6 +29,7 @@ export default defineConfig([
 
             // 配置文件
             '.prettierrc.js',
+            '.stylelintrc.js',
             'eslint.config.mjs',
             'babel.config.js',
             '*.config.js',
