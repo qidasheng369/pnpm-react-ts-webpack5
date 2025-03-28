@@ -2,9 +2,9 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-28 16:53:33
+ * @LastEditTime: 2025-03-28 18:31:18
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
- * @Description:
+ * @Description:Login
  *
  * Copyright (c) 2025 by 齐大胜 email: 782395122@qq.com, All Rights Reserved.
  */
@@ -80,9 +80,12 @@ export const App1 = () => {
 
     return (
         <div>
-            <button onClick={() => navigate('/home')}>首页</button>
+            <button onClick={() => navigate('/')}>首页</button>
             <button onClick={() => navigate('/class')}>类组件</button>
             <button onClick={() => navigate('/class/lazy')}>类组件/懒加载</button>
+            <button onClick={() => navigate('/login')}>Login</button>
+            <button onClick={() => navigate('/403')}>NotAuth</button>
+            <button onClick={() => navigate('/500')}>NotNetwork</button>
             <h2 className={cssModuleStyles?.cssModuleClassName}>template_react_ts css module</h2>
             <h2 className={lessModuleStyles?.lessModuleClassName}>template_react_ts less module</h2>
             <h2 className={sassModuleStyles?.sassModuleClassName}>template_react_ts sass module</h2>

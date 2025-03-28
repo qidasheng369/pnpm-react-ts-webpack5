@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-27 11:21:48
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 11:21:56
+ * @LastEditTime: 2025-03-28 18:34:21
  * @FilePath: /pnpm-react-ts-webpack5/src/components/VideoPlayer.tsx
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 import React from 'react';
 
-const VideoPlayer = () => {
+const VideoPlayer: React.FC = () => {
     const videoRef = React.useRef<HTMLVideoElement>(null);
 
     React.useEffect(() => {

@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-27 14:27:12
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 14:27:20
+ * @LastEditTime: 2025-03-28 18:34:09
  * @FilePath: /pnpm-react-ts-webpack5/src/components/LazyDemo.tsx
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 import React from 'react';
 
-const LazyDemo = () => {
+const LazyDemo: React.FC = () => {
     return <h3>我是懒加载组件</h3>;
 };
 

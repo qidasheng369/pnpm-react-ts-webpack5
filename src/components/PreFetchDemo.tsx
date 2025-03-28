@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-27 16:39:05
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 16:39:16
+ * @LastEditTime: 2025-03-28 18:34:13
  * @FilePath: /pnpm-react-ts-webpack5/src/components/PreFetchDemo.tsx
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 // src/components/PreFetchDemo.tsx
 import React from 'react';
-const PreFetchDemo = () => {
+const PreFetchDemo: React.FC = () => {
     return <h3>我是PreFetchDemo组件</h3>;
 };
 export default PreFetchDemo;

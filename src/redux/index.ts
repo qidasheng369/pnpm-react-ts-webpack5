@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-28 15:17:53
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-28 15:39:41
+ * @LastEditTime: 2025-03-28 18:00:52
  * @FilePath: /pnpm-react-ts-webpack5/src/redux/index.ts
  * @Description:
  *
@@ -19,11 +19,13 @@ import storage from 'redux-persist/lib/storage'; // 使用 localStorage 作为�
 import reduxPromise from 'redux-promise'; // 处理 Promise action
 import { thunk } from 'redux-thunk'; // 处理异步 action
 
+import auth from './modules/auth';
 import home from './modules/home';
 
 // 合并所有 reducer
 const reducer = combineReducers({
     home, // home 模块的 reducer
+    auth,
 });
 
 // redux-persist 配置
