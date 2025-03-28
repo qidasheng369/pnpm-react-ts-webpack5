@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:08:27
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-27 16:30:58
+ * @LastEditTime: 2025-03-28 16:06:02
  * @FilePath: /pnpm-react-ts-webpack5/build/webpack.base.js
  * @Description: 
  * 
@@ -35,13 +35,13 @@ module.exports = {
     cache: {
         type: 'filesystem', // 使用文件缓存
     },
+    // resolve: {
+    //     extensions: [ '.ts', '.tsx', '.js'], // 自动解析确定的扩展
+    // },
     resolve: {
-        extensions: [ '.tsx', '.js', '.ts'], // 自动解析确定的扩展
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.jpeg', '.jpg', '.png'],
+        extensions: ['.ts', '.tsx', '.js', '.jpeg', '.jpg', '.png'],
         alias: {
-            '@': path.resolve(__dirname, '../src')
+            '@': path.resolve(__dirname, 'src')
         }
     },
     plugins: [

@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-28 15:44:58
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-28 15:48:49
+ * @LastEditTime: 2025-03-28 16:55:45
  * @FilePath: /pnpm-react-ts-webpack5/src/routers/index.tsx
  * @Description:
  *
@@ -35,6 +35,11 @@ const globalRoutes: RouteObject[] = [
 
 // 主路由->后续接口中动态获取
 const mainRoutes: RouteObject[] = [
+    {
+        path: '/home', // 路径
+        element: <Home />,
+        permissions: ['add'], // 权限
+    },
     {
         path: '/class',
         permissions: ['add', 'edit'], // 权限

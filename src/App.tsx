@@ -2,7 +2,7 @@
  * @Author: 齐大胜 782395122@qq.com
  * @Date: 2025-03-25 21:06:09
  * @LastEditors: 齐大胜 782395122@qq.com
- * @LastEditTime: 2025-03-28 15:50:10
+ * @LastEditTime: 2025-03-28 16:53:33
  * @FilePath: /pnpm-react-ts-webpack5/src/App.tsx
  * @Description:
  *
@@ -11,6 +11,7 @@
 import React, { lazy, Suspense, useState } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import typingAudio from '@/assets/audios/typing.mp3';
 import cat from '@/assets/imgs/cat1.jpeg';
@@ -19,6 +20,7 @@ import * as cssModuleStyles from './app.module.css';
 import * as lessModuleStyles from './app.module.less';
 import * as sassModuleStyles from './app.module.scss';
 import * as sassStyles from './app2.scss';
+import Layouts from './layouts';
 import RoutersConfig from './routers';
 // import duckVideo from '@/assets/videos/duck.mp4';
 
@@ -60,6 +62,8 @@ export const App1 = () => {
     const [show, setShow] = useState(false);
     const [showPreload, setShowPreload] = useState(false);
 
+    // 使用useNavigate钩子获取navigate函数
+    const navigate = useNavigate();
     // 点击事件中动态引入css, 设置show为true
     const onClick = async () => {
         try {
@@ -76,6 +80,9 @@ export const App1 = () => {
 
     return (
         <div>
+            <button onClick={() => navigate('/home')}>首页</button>
+            <button onClick={() => navigate('/class')}>类组件</button>
+            <button onClick={() => navigate('/class/lazy')}>类组件/懒加载</button>
             <h2 className={cssModuleStyles?.cssModuleClassName}>template_react_ts css module</h2>
             <h2 className={lessModuleStyles?.lessModuleClassName}>template_react_ts less module</h2>
             <h2 className={sassModuleStyles?.sassModuleClassName}>template_react_ts sass module</h2>
@@ -149,7 +156,9 @@ export const App1 = () => {
 const App = () => {
     return (
         <BrowserRouter>
-            <RoutersConfig />
+            <Layouts>
+                <RoutersConfig />
+            </Layouts>
         </BrowserRouter>
     );
 };
